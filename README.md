@@ -18,15 +18,28 @@ Core principles:
 - **Object Storage**: optional raw MIME/message body archival with retention policy.
 
 ## Local Setup
-1. Install PostgreSQL 15+, Redis 7+, and object storage emulator (e.g., MinIO) or cloud bucket.
-2. Create database and apply `/packages/db/schema/001_init.sql`.
-3. Configure environment variables (see below).
-4. Start API service from `/apps/api`.
-5. Start worker service from `/apps/worker`.
+### Option A: Linux machine (copy repo and run)
+1. Install Node.js 20+.
+2. Copy/clone this repository.
+3. Install dependencies:
+   - `npm install`
+4. Start API:
+   - `npm run dev` (development)
+   - or `npm run build && npm start` (production-style run)
+5. Optional: start worker after build:
+   - `npm run start:worker`
+
+By default, API starts on `API_PORT=3000` and returns the current app/module map as JSON.
+
+### Option B: Vercel (deploy directly from copied repository)
+1. Import this repository into Vercel.
+2. Leave defaults for Node.js build (Vercel will use `api/index.ts` as serverless function entrypoint).
+3. Deploy.
+4. Open deployed URL — all routes are mapped to `api/index.ts`.
 
 ## Environment Variables
 - `NODE_ENV` (`development|staging|production`)
-- `API_PORT`
+- `API_PORT` (default: `3000` for Linux runtime)
 - `DATABASE_URL` (PostgreSQL DSN)
 - `REDIS_URL`
 - `JWT_ISSUER`
