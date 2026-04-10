@@ -1,8 +1,9 @@
-import { createApp } from './app';
+import { startServer } from './server';
+import { readEnv } from './config/env';
 
 async function bootstrap() {
-  const app = createApp();
-  return app;
+  const env = readEnv(process.env);
+  await startServer(env.API_PORT);
 }
 
 void bootstrap();
